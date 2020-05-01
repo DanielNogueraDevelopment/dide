@@ -1,0 +1,24 @@
+{
+  "name": "dide",
+  "version": "1.0.0",
+  "description": "Hackathon project",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielNogueraDevelopment/dide.git"
+  },
+  "author": "Daniel Noguera and Isabel Noguera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanielNogueraDevelopment/dide/issues"
+  },
+  "homepage": "https://github.com/DanielNogueraDevelopment/dide#readme",
+  "dependencies": {
+    "discord.js": "^12.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.11"
+  }
+}
