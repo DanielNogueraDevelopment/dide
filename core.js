@@ -1,5 +1,5 @@
 //This file is storing the ways to interact with the database.  
-
+//It was created for the initial tests.  It is no longer needed in any way
 
 
 
@@ -90,8 +90,8 @@ core.run = function (code) {
                 }
             } catch(e){ running = false; throw e}
         }
-        if (sandbox.value.length > 100) {
-            return "maximum return length is 100!"
+        if (sandbox.value.length > 1000) {
+            return "maximum return length is 1000!"
         } else {
             return sandbox.value;
         }

@@ -4,8 +4,7 @@ const mongoose = require("mongoose")
 const config = require("./config")
 const Interpreter = require("js-interpreter")
 //BOT INVITE LINK: https://discordapp.com/oauth2/authorize?client_id=706107173939445783&scope=bot
-
-
+//439260914089459712
 var codeschema = new mongoose.Schema({
     date: {
         type: Date,
@@ -30,13 +29,6 @@ app.get("/dide/:id", function (req, res) {
 })
 
 app.listen(3005);
-
-
-
-
-
-
-
 client.once('ready', () => {
 	console.log('Ready!');
 });
@@ -47,7 +39,7 @@ client.on('message', function(message) {
 	return message.channel.send('My creators are Daniel and Isabel Noguera. Daniel is a junior and Isabel is in 8th Grade at Hamilton Virtual School. Daniel has been coding for a while and Isabel is newer to the coding world. ');
 }
     if (message.content.toLowerCase() === '~help') {
-     return message.channel.send('I am a Discord IDE bot. I turn commands into code that you can run. For a full command list, say “~fullcommands”. Have Fun!');
+     return message.channel.send('I am integraded development enviroment built into a discord bot.  There are the commands you can use \n~create\n~creators\n~view\n~edit\n~add\n~run\n~host\nThis bot can execute code, host html, and edit files.');
 }
  if (message.content.toLowerCase() === '~more') {
      return message.channel.send('There’s more from Daniel and Isabel in https://danielnoguera.com/projects. Check it out!');
@@ -139,34 +131,12 @@ client.on('message', function(message) {
                     Code.findByIdAndRemove(code._id).then(function () {
                         new Code({ title: code.title, _id: code._id, content: code.content }).save(err => console.log(err));
                     })
-                    
-
                     message.channel.send(newcode)
-
-
-
-
-
-
-
                 } else {
                     message.channel.send("We couldn't find that code ):")
                 }
             })
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     if (message.content.toLowerCase().indexOf("~add") == 0) {
@@ -180,27 +150,12 @@ client.on('message', function(message) {
                 Code.findByIdAndRemove(code._id).then(function () {
                     new Code({ title: code.title, _id: code._id, content: code.content }).save(err => console.log(err));
                 })
-
-
                 message.channel.send(newcode)
-
-
-
-
-
-
-
             } else {
                 message.channel.send("We couldn't find that code ):")
             }
         })
-
-
-
-
     }
-
-
     if (message.content.toLowerCase().indexOf("~run") == 0) {
         var splitted = message.content.split(" ");
         Code.findOne({ title: splitted[1] }).then(function (code) {
@@ -224,8 +179,8 @@ client.on('message', function(message) {
                     };
                 }
                 
-                if (sandbox.value.length > 100) {
-                    message.channel.send("maximum return length is 100!")
+                if (sandbox.value.length > 1000) {
+                    message.channel.send("maximum return length is 1000!")
                 } else {
                     if (returner) {
                         console.log("E")
@@ -234,16 +189,8 @@ client.on('message', function(message) {
                         message.channel.send("There was no return value")
                     }
                 }
-
-
-
-
             } catch (e) {
                 if (e) {console.log(e) } else { message.channel.send("OOps.  a error occured") }}
-
-
-
-
         });
     }
 
@@ -258,18 +205,6 @@ client.on('message', function(message) {
 
         });
     }
-
-
-
-
-
-
-       
-
-
-
-
-
 
 });
 
