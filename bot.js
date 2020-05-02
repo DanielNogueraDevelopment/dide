@@ -246,6 +246,24 @@ client.on('message', function(message) {
 
         });
     }
+
+    if (message.content.toLowerCase().indexOf("~host") == 0) {
+        var splitted = message.content.split(" ");
+        Code.findOne({ title: splitted[1] }).then(function (code) {
+            if (code) {
+                message.channel.send(`http://localhost:3005/dide/${code._id}`)
+            } else {
+                message.channel.send("we couldn't find that file")
+            }
+
+        });
+    }
+
+
+
+
+
+
        
 
 
