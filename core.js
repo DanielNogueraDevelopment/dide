@@ -1,9 +1,38 @@
+//This file is storing the ways to interact with the database.  
+
+
+
+
+
+
+
+
+
+
+
+
 const express = require("express");
 const mongoose = require("mongoose");
 const config = require("./config")
 const Interpreter = require("js-interpreter")
 //requiring
 core = {};
+
+//web stuff
+var app = express();
+app.get("/dide/:id", function (req, res) {
+    Code.findById(req.params.id).then(function (code) {
+        if (code) {
+            res.send(code.content)
+        } else {
+            res.send("OOPS!  we couldn't find that code")
+        }
+    })
+})
+
+app.listen(5005);
+
+
 
 //database config
 var codeschema = new mongoose.Schema({
@@ -93,7 +122,7 @@ core.view = function (name) {
             }
             console.log(returner);
         } else {
-            return "could not view"
+            console.log(returner);
         }
     })
 }
@@ -157,7 +186,7 @@ core.editspecific = function (name, start, end, newcontent) {
 
 
 //database connect
-mongoose.connect(config.mongo, { useNewUrlParser: true, useUnifiedTopology: true }).then(function () { console.log("mongo connected"); core.editspecific("daniel", 3, 4,"HI")}).catch(err => console.log(err))
+mongoose.connect(config.mongo, { useNewUrlParser: true, useUnifiedTopology: true }).then(function () { console.log("mongo connected"); core.view("daniel")}).catch(err => console.log(err))
 var codeschema = new mongoose.Schema({
     date: {
         type: Date,
