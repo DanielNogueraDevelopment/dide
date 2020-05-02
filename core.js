@@ -89,8 +89,7 @@ core.view = function (name) {
             code.content = code.content.split(/\r?\n/);
             returner=""
             for (i = 0; i < code.content.length; i++) {
-                returner=returner
-                    +i+" "+code.content[i]+"\n"
+                returner=returner+i+" "+code.content[i]+"\n"
             }
             console.log(returner);
         } else {
@@ -105,9 +104,42 @@ core.viewspecific = function (name, start,end) {
             code.content = code.content.split(/\r?\n/);
             returner = ""
             for (i = start; i <= end; i++) {
-                returner = returner
-                    + i + " " + code.content[i] + "\n"
+                returner = returner+ i + " " + code.content[i] + "\n"
             }
+            console.log(returner);
+        } else {
+            return "could not view"
+        }
+    })
+}
+
+core.editspecific = function (name, start, end, newcontent) {
+    Code.findOne({ title: name }).then(function (code) {
+        if (code) {
+            var returner = "";
+            
+            content = code.content.split("\n");
+            console.log("RAW INFO ", content)
+            console.log("SHOULD BE ARRAY ",content)
+            var dealtwith = false;
+            console.log("LENGTH: ",content.length)
+            for (i = 0; i <= content.length; i++) {
+                if (i >= start && i <= end) {
+                    if (!dealtwith) {
+                        returner = returner + newcontent + "\n"
+                        dealtwith = true;
+                    } else {
+                        
+                    }
+                } else {
+                    if (content[i]) {
+                        returner = returner + content[i] + "\n";
+                    }
+                    }
+
+            }
+            code.content = returner;
+            new Code(code).save();
             console.log(returner);
         } else {
             return "could not view"
@@ -124,10 +156,8 @@ core.viewspecific = function (name, start,end) {
 
 
 
-
-
 //database connect
-mongoose.connect(config.mongo, { useNewUrlParser: true, useUnifiedTopology: true }).then(function () { console.log("mongo connected");core.viewspecific("daniel",0,3)}).catch(err => console.log(err))
+mongoose.connect(config.mongo, { useNewUrlParser: true, useUnifiedTopology: true }).then(function () { console.log("mongo connected"); core.editspecific("daniel", 3, 4,"HI")}).catch(err => console.log(err))
 var codeschema = new mongoose.Schema({
     date: {
         type: Date,
