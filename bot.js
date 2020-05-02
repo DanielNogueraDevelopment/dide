@@ -88,18 +88,16 @@ client.on('message', function(message) {
         
         if (!Object.is(Number(splitted[2]), NaN)) {
             console.log("here we go")
-
-
-
-
-
-
+            var newcode = message.content.replace(message.content.split(" ")[0] + " " + message.content.split(" ")[1], "")
             
-            
+            var name = splitted[1];
+            var start = splitted[2];
+            var end = splitted[3];
+            var newcontent = message.content.replace(`~edit ${name} ${start} ${end} `,"");
+            console.log("New content is "+newcontent)
                 Code.findOne({ title: name }).then(function (code) {
                     if (code) {
                         var returner = "";
-
                         content = code.content.split("\n");
                         console.log("RAW INFO ", content)
                         console.log("SHOULD BE ARRAY ", content)
@@ -118,25 +116,18 @@ client.on('message', function(message) {
                                     returner = returner + content[i] + "\n";
                                 }
                             }
-
                         }
+                        console.log(returner)
                         code.content = returner;
-                        new Code(code).save();
-                        console.log(returner);
+                        Code.findByIdAndRemove(code._id).then(function () {
+                            new Code({ title: code.title, _id: code._id, content: returner }).save(err => console.log(err));
+                            message.channel.send(returner);
+                        })
+                        
                     } else {
-                        return "could not view"
+                        message.channel.send("We couldn't find that file ):");
                     }
                 })
-            
-
-
-
-
-
-
-
-
-
         } else {
             console.log("here we go2")
             Code.findOne({ title: splitted[1] }).then(function (code) {
@@ -175,6 +166,10 @@ client.on('message', function(message) {
 
 
 
+
+    }
+
+    if (message.content.toLowerCase().indexOf("~add") == 0) {
 
     }
 
