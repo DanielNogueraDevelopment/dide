@@ -16,45 +16,6 @@ var codeschema = new mongoose.Schema({
 })
 var Code = mongoose.model("Code", codeschema)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 client.once('ready', () => {
 	console.log('Ready!');
 });
@@ -67,7 +28,9 @@ client.on('message', function(message) {
 if (message.content === '~help') {
 message.channel.send('I am a Discord IDE bot. I turn commands into code that you can run. For a full command list, say “~fullcommands”. Have Fun!');
 }
-
+if (message.content === '~more') {
+message.channel.send('There’s more from Daniel and Isabel in https://danielnoguera.com/projects. Check it out!');
+}
 });
 
 
