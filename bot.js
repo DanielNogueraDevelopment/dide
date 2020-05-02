@@ -170,11 +170,83 @@ client.on('message', function(message) {
     }
 
     if (message.content.toLowerCase().indexOf("~add") == 0) {
+        var splitted = message.content.split(" ");
+        Code.findOne({ title: splitted[1] }).then(function (code) {
+            console.log("splitted" + message.content.split(" ")[0] + message.content.split(" ")[1])
+            var newcode = message.content.replace(message.content.split(" ")[0] + " " + message.content.split(" ")[1], "")
+            if (code) {
+                console.log("code:" + code);
+                code.content = (code.content.concat(newcode))
+                Code.findByIdAndRemove(code._id).then(function () {
+                    new Code({ title: code.title, _id: code._id, content: code.content }).save(err => console.log(err));
+                })
+
+
+                message.channel.send(newcode)
+
+
+
+
+
+
+
+            } else {
+                message.channel.send("We couldn't find that code ):")
+            }
+        })
+
+
+
 
     }
 
 
+    if (message.content.toLowerCase().indexOf("~run") == 0) {
+        var splitted = message.content.split(" ");
+        Code.findOne({ title: splitted[1] }).then(function (code) {
+            try {
+                
+                var returner = "";
+                var sandbox = new Interpreter(code.content);
+                var running = true;
+                while (running) {
+                    
+                    try {
 
+                        if (sandbox.step() == false) {
+                            running = false
+                        }
+                    } catch (e) { running = false; throw e }
+                    if (sandbox.value) {
+                        
+                        returner = sandbox.value
+                        console.log(returner)
+                    };
+                }
+                
+                if (sandbox.value.length > 100) {
+                    message.channel.send("maximum return length is 100!")
+                } else {
+                    if (returner) {
+                        console.log("E")
+                        message.channel.send(returner);
+                    } else{
+                        message.channel.send("There was no return value")
+                    }
+                }
+
+
+
+
+            } catch (e) {
+                if (e) {console.log(e) } else { message.channel.send("OOps.  a error occured") }}
+
+
+
+
+        });
+    }
+       
 
 
 
