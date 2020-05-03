@@ -21,9 +21,9 @@ var app = express();
 app.get("/dide/:id", function (req, res) {
     Code.findById(req.params.id).then(function (code) {
         if (code) {
-            res.send(code.content)
+            res.send(code.content);
         } else {
-            res.send("OOPS!  we couldn't find that code")
+            res.send("OOPS!  we couldn't find that code");
         }
     })
 })
@@ -198,7 +198,7 @@ client.on('message', function(message) {
         var splitted = message.content.split(" ");
         Code.findOne({ title: splitted[1] }).then(function (code) {
             if (code) {
-                message.channel.send(`http://localhost:3005/dide/${code._id}`)
+                message.channel.send(`https://danielnoguera.com/dide/${code._id}`)
             } else {
                 message.channel.send("we couldn't find that file")
             }
