@@ -18,7 +18,7 @@
   "homepage": "https://github.com/DanielNogueraDevelopment/dide#readme",
   "dependencies": {
     "discord.js": "^12.2.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "js-interpreter": "^2.2.0",
     "mongoose": "^5.9.11"
   }
